@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #myRange {
+            width: 50%; /* Width of the outside container */
+        }
+
+        div {
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        #originalImg {
+            width: 200px;
+            height: 200px;
+        }
+
+        #imgCompressed {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body style="{ font-face: sans-serif; }">
+<script src="jpgsquash.js"></script>
+<script>
+    var wasm_loaded = false;
+    Module.onRuntimeInitialized = function () {
+        wasm_loaded = true;
+    };
+
+    function squash_jpg_blob(source, quality) {
+        if (!wasm_loaded) {
+            return undefined;
+        }
+        console.log('source', source);
+        console.log('quality', quality);
+        return Module._jpg_transcode(source, quality);
+    }
+</script>
+<div style="width: 100%;">
+    <input type="file" id="files" name="files[]"/>
+    <input type="range" min="1" max="100" value="5" step="1" id="myRange">
+    <div style="display:inline"><span>&nbsp;</span>Q:&nbsp;<span id="qual">5</span>&nbsp;==&nbsp;<span id="sizekb">0</span>&nbsp;kBytes
+    </div>
+</div>
+
+<div style="width: 25%">
+    <div style="width: 50%; float: left">
+        <img id="originalImg" src="" alt="">
+    </div>
+    <div style="width: 50%; float: left">
+        <img id="imgCompressed" src="" alt="">
+    </div>
+
+
+</div>
+
+
+<script type="text/javascript" src="initapp.js"></script>
+<script type="text/javascript" src="compressimage.js"></script>
+</body>
+</html>

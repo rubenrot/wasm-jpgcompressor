@@ -1,0 +1,9 @@
+
+
+1) Instalar mingw para poder ejecutar Make en Windows.
+
+2) Ejecuar el comando
+copy D:\Mingw\bin\mingw32-make.exe D:\Mingw\bin\make.exe
+
+3) Añdir la variable de entorno, para tener el comando make disponible en la consola.
+D:\Mingw\bin\
