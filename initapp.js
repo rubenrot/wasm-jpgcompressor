@@ -1,11 +1,15 @@
-// Check for the various File API support.
+// Se comprueba si el navegador soporta la API de ficheros..
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-    // Great success! All the File APIs are supported.
+    // API soportada
 } else {
-    alert('The File APIs are not fully supported in this browser.');
+    alert('La File APIs no está soportada en este navegador.');
 }
 
-// image should be a Uint8Array of raw JPEG binary image data
+/**
+ * Crea un blob a partir de un objeto imagen.
+ * @param image should be a Uint8Array of raw JPEG binary image data
+ * @returns {string|null}
+ */
 function makeBlobUrl(image) {
     var blob;
 
@@ -22,35 +26,43 @@ function makeBlobUrl(image) {
 
 var fileAsArray = undefined;
 
+/**
+ * Manejador del evento cuando se selecciona una Imagen
+ * @param evt
+ */
 function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+    var files = evt.target.files; // Objeto FileList
 
-    // files is a FileList of File objects. grab the name.
+    // files es un FileList de un objeto File.
     if (files[0]) {
         var f = files[0];
         var reader = new FileReader();
-        // Closure to capture the file information.
-        reader.onload = (function (theFile) {
+        // Se captura la información del archivo.
+        reader.onload = (function () {
             return function (e) {
+                //Se traduce la imagen a una url para poderla manipular en el HTML
                 var blob = makeBlobUrl(e.target.result);
+                //Se establece la imagen original
                 document.getElementById('originalImg').src = blob;
-                set_blob(blob);
                 fileAsArray = e.target.result;
-                set_right_array(fileAsArray, "&rarr;&nbsp;Q: " + gQuality);
+                compressImage(fileAsArray, '5');
             };
         })(f);
+
+        document.getElementById("slider-container").style.display = "block";
 
         // Read in the image file as an array buffer.
         reader.readAsArrayBuffer(f);
     }
 }
 
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
-var qual_text = document.getElementById('qual');
-
 function handleQualityChange(evt) {
+    //Se muestra el valor seleccionado en el HTML
     qual.innerHTML = evt.target.value;
-    set_jpeg_quality(evt.target.value);
+    // evt.target.value - quality
+    compressImage(fileAsArray, evt.target.value);
 }
 
+//Se atachan los eventos al Selector de Archivos (para la imagen jpg) y el Slider (para la selección de la calidad del archivo)
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
 document.getElementById('myRange').addEventListener('change', handleQualityChange, false);
