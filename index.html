@@ -29,27 +29,36 @@
                 </label>
                 <input type="file" id="files" name="files[]"/>
             </div>
+
             <div class="col-12 text-center" id="slider-container" style="display: none">
                 <input type="range" min="1" max="100" value="5" step="1" id="myRange" class="slider">
                 <div style="display:inline">
                     <span></span>Q: <span id="qual">5</span> == <span id="sizekb">0</span> kBytes
                 </div>
             </div>
-            <div class="col-6 text-center">
-                <img id="originalImg" src="" alt="">
+
+            <div class="container" id="cards-container" style="display: none;">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img id="originalImg" src="" alt="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img id="imgCompressed" src="" alt="">
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
             </div>
-            <div class="col-6 text-center">
-                <img id="imgCompressed" src="" alt="">
-            </div>
+
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-
-    </div>
-</div>
 
 <script type="text/javascript" src="initapp.js"></script>
 <script type="text/javascript" src="compressimage.js"></script>

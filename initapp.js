@@ -50,6 +50,8 @@ function handleFileSelect(evt) {
         })(f);
 
         document.getElementById("slider-container").style.display = "block";
+        document.getElementById("cards-container").style.display = "block";
+        //document.getElementById("courtain").classList.add("closed");
 
         // Read in the image file as an array buffer.
         reader.readAsArrayBuffer(f);
