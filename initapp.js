@@ -45,12 +45,13 @@ function handleFileSelect(evt) {
                 //Se establece la imagen original
                 document.getElementById('originalImg').src = blob;
                 fileAsArray = e.target.result;
-                compressImage(fileAsArray, '5');
+                compressImage(fileAsArray, '50');
             };
         })(f);
 
         document.getElementById("slider-container").style.display = "block";
         document.getElementById("cards-container").style.display = "block";
+        document.getElementById("qual").innerHTML = '50';
         //document.getElementById("courtain").classList.add("closed");
 
         // Read in the image file as an array buffer.
